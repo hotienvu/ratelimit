@@ -36,7 +36,6 @@ func (l *RateLimiter) LimitReached(q RateLimitQuery) bool {
 	//rate.Limiter has its own locking mechanism so it's thread safe
 	// but we still have to RLock the hashmap before reading
 	// otherwise Go will throw fatal when it detects concurrent read& write
-	// https://jira.ges.symantec.com/browse/HSELF-1282
 	return !l.tokenBuckets[key].AllowN(time.Now(), q.Val)
 }
 
